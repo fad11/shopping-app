@@ -1,0 +1,20 @@
+Ansible:
+[Master Commands]
+ssh-keygen
+ssh-copy-id user@192.168.1.17
+ansible-playbook -i hosts playbook.yaml --ask-become-pass
+
+[Slave Commands]
+sudo apt install openssh-server
+sudo apt install net-tools
+
+Docker:
+docker build -f Dockerfile -t nodeapp:1.0.0 .
+docker run -p 3000:3000 nodeapp:1.0.0 -d
+
+Jenkins:
+docker-compose -f docker-compose up 
+
+Node:
+npm install express body-parser
+node app.js

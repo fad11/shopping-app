@@ -1,0 +1,20 @@
+---
+- name: Ensure Node.js is installed
+  ansible.builtin.apt:
+    name: nodejs
+    state: present
+  become: yes
+
+- name: Ensure npm is installed
+  ansible.builtin.apt:
+    name: npm
+    state: present
+  become: yes
+
+- name: Install application dependencies
+  ansible.builtin.command:
+    cmd: npm install express body-parser
+
+- name: Start Node.js application
+  ansible.builtin.command:
+    cmd: node /path/to/your-project/app/app.js

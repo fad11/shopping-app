@@ -1,0 +1,5 @@
+---
+- name: Deploy Node.js Application
+  hosts: webservers
+  roles:
+    - nodejs
