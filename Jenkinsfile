@@ -3,15 +3,15 @@ pipeline {
   
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-    DOCKERHUB_REPO = 'your-dockerhub-username/shopping-app' // Replace with your Docker Hub repository
-    APP_NAME = 'shopping-app'
+    DOCKERHUB_REPO = 'fadiib/nodeapp'
+    APP_NAME = 'nodeapp'
     DOCKER_IMAGE = "${DOCKERHUB_REPO}:${env.BUILD_NUMBER}"
   }
 
   stages {
     stage('Clone') {
       steps {
-        git branch: 'main', url: 'https://github.com/your-repository-url.git'
+        git branch: 'main', url: 'https://github.com/fad11/shopping-app.git'
       }
     }
 
@@ -19,8 +19,9 @@ pipeline {
       steps {
         catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
           script {
-            sh 'cd /var/jenkins_home/workspace/Internship-Pipeline'
-            sh 'docker build -t $DOCKER_IMAGE .'
+            sh 'cd /var/jenkins_home/workspace/node'
+            sh 'docker build -f Dockerfile -t $DOCKER_IMAGE .'
+            sh 'docker tag $DOCKER_IMAGE $DOCKER_IMAGE '
           }
         }
       }
@@ -29,25 +30,14 @@ pipeline {
     stage('Push Image') {
       steps {
         catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-          script {
-            withDockerRegistry([credentialsId: 'dockerhub-credentials', url: 'https://registry.hub.docker.com']) {
-              docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
-                def image = docker.image("$DOCKER_IMAGE")
-                image.push()
-              }
+          script{
+              withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                sh "echo $PASSWORD | docker login -u $USER --password-stdin"
+                sh "docker push $DOCKER_IMAGE"
             }
-          }
+        }
         }
       }
-    }
-
-    stage(''){
-        steps{
-            script{
-                sh 'ssh user@127.0.0.1'
-                sh 'docker run -d -p 3000:3000 --name $APP_NAME $DOCKER_IMAGE'
-            }
-        }
     }
   }
   post {
