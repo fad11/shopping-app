@@ -30,14 +30,6 @@ Start the server:
 npm start
 ```
 
-## Running Tests
-
-To run the tests for this application, use the following command:
-
-```bash
-npm test
-```
-
 ## Routes
 
 ### Products
