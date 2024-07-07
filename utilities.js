@@ -3,7 +3,7 @@ function generateUniqueId() {
 }
 
 function calculateTotal(shoppingList) {
-    return shoppingList.reduce((total, product) => total + product.price, 0);
+    return shoppingList.reduce((total, item) => total + (item.price * item.quantity), 0);
 }
 
 function updateShoppingList(shoppingList, productId, updatedProduct) {

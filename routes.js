@@ -21,5 +21,6 @@ router.get('/promo-codes', promoCodesController.getPromoCodes);
 router.post('/promo-codes', promoCodesController.createPromoCode);
 router.delete('/promo-codes/:promoCodeId', promoCodesController.deletePromoCode);
 router.post('/apply-promo/:promoCodeId', promoCodesController.applyPromoCode);
+router.post('/apply-promo-code/:promoCodeId', shoppingListController.applyPromoCode);
 
 module.exports = router;
