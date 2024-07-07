@@ -1,4 +1,4 @@
-Fte# Shopping List App
+# Shopping List App
 
 This is a simple shopping list application built with Node.js and Express.
 
@@ -28,6 +28,14 @@ Start the server:
 
 ```bash
 npm start
+```
+
+## Running Tests
+
+To run the tests for this application, use the following command:
+
+```bash
+npm test
 ```
 
 ## Routes
@@ -185,7 +193,7 @@ npm start
 ##### `Status Codes`
 - 204 No Content: This status code indicates that the promo code deletion operation was successful, and there is no content to return in the response body.
 
-#### **POST /apply-promo/:promoCodeId**: Apply a promo code to the shopping list.
+#### **POST /apply-promo-code/:promoCodeId**: Apply a promo code to the shopping list.
 
 ##### `Status Codes`
 - 200 OK: When a promo code is successfully applied to the shopping list, this status code indicates the successful application. The response includes a message confirming the application and the updated total cost.
